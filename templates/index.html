@@ -38,4 +38,24 @@
     {% endfor %}
   </ul>
 </body>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          fetch("/pendientes")
+            .then(res => res.json())
+            .then(data => {
+              if (data.total > 0) {
+                new Notification("🛒 Productos pendientes", {
+                  body: `Aún tienes ${data.total} producto(s) sin comprar.`,
+                  icon: "https://cdn-icons-png.flaticon.com/512/263/263115.png"
+                });
+              }
+            });
+        }
+      });
+    }
+  });
+  </script>
 </html>
