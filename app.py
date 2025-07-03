@@ -56,5 +56,14 @@ def comprar(id):
     conn.close()
     return redirect('/')
 
+from flask import jsonify
+
+@app.route('/pendientes')
+def pendientes():
+    conn = get_db_connection()
+    total = conn.execute('SELECT COUNT(*) FROM productos WHERE comprado = 0').fetchone()[0]
+    conn.close()
+    return jsonify({"total": total})
+
 if __name__ == '__main__':
     app.run(debug=True)
