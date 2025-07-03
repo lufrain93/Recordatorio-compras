@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Compras</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    input, button { font-size: 1em; padding: 8px; }
+    ul { padding-left: 0; }
+    li { list-style: none; margin: 10px 0; display: flex; justify-content: space-between; }
+    .comprado { text-decoration: line-through; color: gray; }
+  </style>
+</head>
+<body>
+  <h1>🛒 Lista de Compras</h1>
+  <form action="/agregar" method="post">
+    <input type="text" name="producto" placeholder="¿Qué falta?" required>
+    <button type="submit">Agregar</button>
+  </form>
+
+  <ul>
+    {% for item in items %}
+      <li>
+        {{ item["nombre"] }}
+        <a href="/comprar/{{ item['id'] }}">✅</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
